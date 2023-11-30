@@ -9,10 +9,8 @@ import { GenresDto, MoviesDto } from '../types/movie';
 
 @Injectable()
 export class TVShowsService {
-  private apiUrl = "https://api.themoviedb.org/3";
-  private apiKey = "81afbda1d68d879477495f66a71bde7f";
-  // private apiUrl = process.env["BASE_URL"];
-  // private apiKey = process.env["API_KEY"];
+  private apiUrl = process.env["BASE_URL"];
+  private apiKey = process.env["API_KEY"];
 
   constructor(private http: HttpClient) { }
 
