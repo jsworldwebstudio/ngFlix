@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="grid">
+    <div class="col-6 genres-links">
+      <a
+        routerLink="/genres/movie"
+        role="button"
+        aria-hidden="true"
+      >
+        <i class="pi pi-search"></i>
+        Search Movies by Genre
+      </a>
+    </div>
+    <div class="col-6 genres-links">
+      <a
+        routerLink="/genres/tv"
+        role="button"
+        aria-hidden="true"
+      >
+        <i class="pi pi-search"></i>
+        Search TV Shows by Genre
+      </a>
+    </div>
+    <div class="col-12 genres-links">
+      <ng-container *ngIf="genres$ | async as genres">
+        <a *ngFor="let genre of genres"
+          (click)="findByGenre(genre.id, genre.name)"
+          (keydown)="findByGenre(genre.id, genre.name)"
+          role="button"
+          aria-hidden="true"
+        >
+          {{ genre.name }}
+        </a>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="showsList$ | async as showsList">
+    <h1>Selected Genre: {{ genreNameSaved }}</h1>
+    <div class="grid">
+      <div class="col-2" *ngFor="let show of showsList.results">
+        <app-show-item [showItem]="show" [showType]="genreType" />
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">    
+        <p-paginator
+          (onPageChange)="pageChange($event)"
+          [rows]="20"
+          [totalRecords]="showsList.total_results"
+        ></p-paginator>
+      </div>
+    </div>
+  </ng-container>
+</div>

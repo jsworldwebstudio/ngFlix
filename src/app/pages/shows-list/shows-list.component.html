@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="grid">
+    <div class="col-6">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          placeholder="Search {{ genreType }} by Name"
+          pInputText [(ngModel)]="searchValue"
+          (change)="searchChange()"
+        />
+    </span>
+    </div>
+    <div class="col-6 genres-links">
+      <a
+        [routerLink]="'/genres/' + showType"
+        role="button"
+        aria-hidden="true"
+      >
+        <i class="pi pi-search"></i>
+        Search {{ genreType }} by Genre
+      </a>
+  </div>
+  </div>
+  <ng-container *ngIf="showsList$ | async as showsList">
+    <div class="grid">
+      <div class="col-2" *ngFor="let show of showsList.results">
+        <app-show-item [showItem]="show" [showType]="showType" />
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">    
+        <p-paginator
+          (onPageChange)="pageChange($event)"
+          [rows]="20"
+          [totalRecords]="showsList.total_results"
+        ></p-paginator>
+      </div>
+    </div>
+  </ng-container>
+</div>
